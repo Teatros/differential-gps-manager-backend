@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.firedance.gps.dao.DatagramMapper">
+    <resultMap id="BaseResultMap" type="com.firedance.gps.model.MessageDatagram">
+        <result column="account" property="account"/>
+        <result column="datagram" property="datagram"/>
+        <result column="create_date_time" property="createDateTime"/>
+    </resultMap>
+    <sql id="base_sql">
+        account,datagram,create_date_time
+    </sql>
+    <insert id="insertGGA" parameterType="com.firedance.gps.model.MessageDatagram">
+        insert into client_datagram(account,datagram,create_date_time)values(#{account},#{datagram},NOW())
+    </insert>
+    <insert id="insertServerData" parameterType="com.firedance.gps.model.MessageDatagram">
+        insert into server_datagram(account,datagram,create_date_time)values(#{account},#{datagram},NOW())
+    </insert>
+</mapper>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.firedance.gps.dao.ServerAccountMapper">
+    <resultMap id="BaseResultMap" type="com.firedance.gps.model.ServerAccount">
+        <id column="id" property="id"/>
+        <result column="ip" property="ip"/>
+        <result column="port" property="port"/>
+        <result column="mount_point" property="mountPoint"/>
+        <result column="account" property="account"/>
+        <result column="password" property="password"/>
+        <result column="service_start_datetime" property="serviceStartDateTime"/>
+        <result column="service_end_datetime" property="serviceEndDateTime"/>
+        <result column="is_in_use" property="inUse"/>
+        <result column="enable" property="enable"/>
+        <result column="disable_reason" property="disableReason"/>
+        <result column="create_date_time" property="createDateTime"/>
+
+    </resultMap>
+    <sql id="base_sql">
+        id,ip,port,mount_point,account,password,service_start_datetime,service_end_datetime,is_in_use,enable,disable_reason
+    </sql>
+    <insert id="batchInsert" parameterType="com.firedance.gps.model.ServerAccount">
+        insert into server_account(id,ip,port,mount_point,account,password,service_start_datetime,service_end_datetime,is_in_use,enable,disable_reason,create_date_time,is_delete)
+        values
+        <foreach collection="serverAccounts" item="serverAccount" separator=",">
+            (#{serverAccount.id},#{serverAccount.ip},#{serverAccount.port},#{serverAccount.mountPoint},
+             #{serverAccount.account},#{serverAccount.password},
+             #{serverAccount.serviceStartDateTime},#{serverAccount.serviceEndDateTime},0,1,'',NOW(),0)
+        </foreach>
+    </insert>
+    <insert id="insert" parameterType="com.firedance.gps.model.ServerAccount">
+        insert into server_account(id,ip,port,mount_point,account,password,service_start_datetime,service_end_datetime,is_in_use,enable,disable_reason,create_date_time,is_delete)
+        values (#{id},#{ip},#{port},#{mountPoint},#{account},#{password},#{serviceStartDateTime},#{serviceEndDateTime},1,1,'',NOW(),0)
+    </insert>
+    <select id="list" parameterType="com.firedance.gps.controller.param.ServerAccountQueryParams" resultMap="BaseResultMap">
+        select <include refid="base_sql"/> from server_account
+        where
+        is_delete = 0
+        <if test="ip!=null and ip!=''">
+            and ip like concat('%',#{ip},'%')
+        </if>
+        <if test="port!=null and port!=''">
+            and port like concat('%',#{port},'%')
+        </if>
+        <if test="mountPoint != null and mountPoint!= ''">
+            and mount_point = #{mountPoint}
+        </if>
+        <if test="account != null and account!= ''">
+            and account like concat('%',#{account},'%')
+        </if>
+        <if test="inUse != null">
+            and is_in_use = #{inUse}
+        </if>
+        <if test="enable != null">
+            and enable = #{enable}
+        </if>
+        order by ip,port,create_date_time desc
+    </select>
+    <delete id="delete" parameterType="String">
+        update server_account set is_delete = 1 where id = #{id}
+    </delete>
+</mapper>
