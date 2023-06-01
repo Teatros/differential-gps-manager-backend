@@ -2,10 +2,12 @@ package com.firedance.gps.controller;
 
 import com.firedance.gps.config.PageData;
 import com.firedance.gps.controller.param.ClientUserQueryParams;
+import com.firedance.gps.controller.param.OnlineAccountQueryParams;
 import com.firedance.gps.handler.result.Result;
 import com.firedance.gps.handler.result.ResultHelper;
 import com.firedance.gps.model.AccountSpecification;
 import com.firedance.gps.model.ClientAccount;
+import com.firedance.gps.model.OnlineAccount;
 import com.firedance.gps.model.enums.AccountSpecificationEnum;
 import com.firedance.gps.model.excel.ClientAccountExcelModel;
 import com.firedance.gps.service.IClientAccountService;
@@ -83,17 +85,8 @@ public class ClientAccountController {
     }
 
 
-//    @PostMapping("/client/batchImportAccounts")
-//    public Result<Boolean> batchImportAccounts(@RequestParam(value = "file") MultipartFile file){
-//        String fileName = file.getName();
-//        File tempFile = null;
-//        try {
-//            tempFile = File.createTempFile(UUIDUtil.getId(), fileName.substring(fileName.lastIndexOf(".")));
-//            file.transferTo(tempFile);
-//            List<ClientAccount> clientAccounts = clientAccountService.analyseExcel(tempFile);
-//            clientAccountService.importClientAccounts(clientAccounts);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @PostMapping("/client/on_line_account")
+    public Result<PageData<OnlineAccount>> getOnlineAccount(@RequestBody OnlineAccountQueryParams onlineAccountQueryParams){
+        return ResultHelper.success(clientAccountService.listOnlineAccounts(onlineAccountQueryParams));
+    }
 }

@@ -2,9 +2,11 @@ package com.firedance.gps.service.impl;
 
 import com.firedance.gps.config.PageData;
 import com.firedance.gps.controller.param.ClientUserQueryParams;
+import com.firedance.gps.controller.param.OnlineAccountQueryParams;
 import com.firedance.gps.dao.ClientAccountMapper;
 import com.firedance.gps.dao.ClientLoginRecordMapper;
 import com.firedance.gps.model.ClientAccount;
+import com.firedance.gps.model.OnlineAccount;
 import com.firedance.gps.model.enums.AccountSpecificationEnum;
 import com.firedance.gps.service.IClientAccountService;
 import com.firedance.gps.utils.ExcelUtil;
@@ -101,5 +103,19 @@ public class ClientAccountServiceImpl implements IClientAccountService {
     @Override
     public void updateAccount(ClientAccount clientAccount) {
         clientAccountMapper.update(clientAccount);
+    }
+
+    @Override
+    public PageData<OnlineAccount> listOnlineAccounts(OnlineAccountQueryParams onlineAccountQueryParams) {
+        Integer pageNum = onlineAccountQueryParams.getPageNum();
+        Integer pageSize = onlineAccountQueryParams.getPageSize();
+
+        Page<OnlineAccount> page =
+            PageHelper.startPage(pageNum, pageSize);
+        List<OnlineAccount> list = clientAccountMapper.listOnlineAccounts();
+        PageData<OnlineAccount> result =
+            new PageData<>(pageNum, pageSize, list.size(), page.getTotal(), list);
+        PageHelper.clearPage();
+        return result;
     }
 }

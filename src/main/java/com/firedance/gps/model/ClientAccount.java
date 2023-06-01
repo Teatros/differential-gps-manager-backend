@@ -21,6 +21,7 @@ public class ClientAccount {
     private LocalDateTime serviceStartDateTime;
     private LocalDateTime serviceEndDateTime;
     private LocalDateTime lastLoginDateTime;
+    private Boolean inUse;
     private LocalDateTime createDateTime;
     private Boolean forbidden;
 }

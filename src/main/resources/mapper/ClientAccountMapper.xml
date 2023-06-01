@@ -10,11 +10,12 @@
         <result column="service_start_datetime" property="serviceStartDateTime"/>
         <result column="service_end_datetime" property="serviceEndDateTime"/>
         <result column="last_login_date_time" property="lastLoginDateTime"/>
+        <result column="is_in_use" property="inUse"/>
         <result column="create_date_time" property="createDateTime"/>
         <result column="forbidden" property="forbidden"/>
     </resultMap>
     <sql id="base_sql">
-        id,account,password,specification,service_start_datetime,service_end_datetime,last_login_date_time,create_date_time,forbidden
+        id,account,password,specification,service_start_datetime,service_end_datetime,last_login_date_time,is_in_use,create_date_time,forbidden
     </sql>
     <select id="selectByAccount" resultMap="BaseResultMap">
         select <include refid="base_sql"/> from client_account
@@ -35,11 +36,11 @@
         </if>
     </select>
     <insert id="batchInsert" parameterType="com.firedance.gps.model.ClientAccount">
-        insert into client_account(id,account,password,specification,service_start_datetime,service_end_datetime,forbidden,create_date_time,is_delete)
+        insert into client_account(id,account,password,specification,service_start_datetime,service_end_datetime,is_in_use,forbidden,create_date_time,is_delete)
         values
         <foreach collection="clientAccounts" item="clientAccount" separator=",">
             (#{clientAccount.id},#{clientAccount.account},#{clientAccount.password},#{clientAccount.specification},
-             #{clientAccount.serviceStartDateTime},#{clientAccount.serviceEndDateTime},#{clientAccount.forbidden},
+             #{clientAccount.serviceStartDateTime},#{clientAccount.serviceEndDateTime},0,#{clientAccount.forbidden},
              NOW(),0)
         </foreach>
     </insert>
@@ -61,8 +62,14 @@
             <if test="forbidden != null">
                 forbidden = #{forbidden},
             </if>
+            <if test="inUse != null">
+                is_in_use = #{inUse},
+            </if>
         </set>
         where
         account=#{account}
     </update>
+    <select id="listOnlineAccounts" resultType="com.firedance.gps.model.OnlineAccount">
+        select account,last_datagram lastDatagram from client_account where is_in_use = 1 order by last_login_date_time desc
+    </select>
 </mapper>

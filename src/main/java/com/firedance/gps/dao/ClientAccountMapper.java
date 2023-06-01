@@ -2,6 +2,7 @@ package com.firedance.gps.dao;
 
 import com.firedance.gps.controller.param.ClientUserQueryParams;
 import com.firedance.gps.model.ClientAccount;
+import com.firedance.gps.model.OnlineAccount;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
@@ -28,4 +29,7 @@ public interface ClientAccountMapper {
     void batchInsert(@Param("clientAccounts")ArrayList<ClientAccount> clientAccounts);
 
     void update(ClientAccount clientAccount);
+
+    List<OnlineAccount> listOnlineAccounts();
+
 }
