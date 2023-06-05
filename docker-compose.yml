@@ -1,8 +1,8 @@
 version: '1'
 services:
-  differential-gps-data-center:
+  differential-gps-manager-backend:
     image: 'differential-gps-manager-backend:v1'
-    container_name: differential-gps-data-center
+    container_name: differential-gps-manager-backend
     restart: always
     ports:
       - 8091:8091
