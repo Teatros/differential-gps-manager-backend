@@ -107,7 +107,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>question-bank-analysis</finalName>
+        <finalName>differential-gps-manager-backend</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
