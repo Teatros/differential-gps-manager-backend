@@ -57,12 +57,12 @@ public class ServerAccountServiceImpl implements IServerAccountService {
             Workbook workbook = ExcelUtil.initExcel(tempFile);
             Sheet sheet = workbook.getSheetAt(0);
             List<Row> allRow = ExcelUtil.getAllRow(sheet);
-            for (int i = 1; i < allRow.size(); i++) {
+            for (int i = 0; i < allRow.size(); i++) {
                 Row cells = allRow.get(i);
-                String ip = ExcelUtil.getCellFormatValue(cells.getCell(3)).toString();
-                String port = ExcelUtil.getCellFormatValue(cells.getCell(4)).toString();
                 String account = ExcelUtil.getCellFormatValue(cells.getCell(1)).toString();
                 String password = ExcelUtil.getCellFormatValue(cells.getCell(2)).toString();
+                String ip = ExcelUtil.getCellFormatValue(cells.getCell(3)).toString();
+                String port = ExcelUtil.getCellFormatValue(cells.getCell(4)).toString();
                 String mountPoint = ExcelUtil.getCellFormatValue(cells.getCell(5)).toString();
                 ServerAccount build =
                     ServerAccount.builder().id(UUIDUtil.getId()).ip(ip).port(port).account(account).password(password)
