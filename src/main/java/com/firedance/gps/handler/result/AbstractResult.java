@@ -1,5 +1,7 @@
 package com.firedance.gps.handler.result;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * @author leiwei
  */
@@ -66,5 +68,15 @@ public abstract class AbstractResult<T> implements IResult<T> {
     @Override
     public boolean isSuccess() {
         return "200".equals(this.getReturnCode());
+    }
+
+    @Override
+    public String toString() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("returnCode",returnCode);
+        jsonObject.put("returnMsg",returnMsg);
+        jsonObject.put("returnObject",returnObject);
+        jsonObject.put("level",level);
+        return jsonObject.toJSONString();
     }
 }

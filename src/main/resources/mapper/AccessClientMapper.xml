@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.firedance.gps.dao.AccessClientMapper">
+    <resultMap id="BaseResultMap" type="com.firedance.gps.model.AccessClient">
+        <result column="access_key" property="accessKey"/>
+        <result column="access_secret" property="accessSecret"/>
+        <result column="service_start_datetime" property="serviceStartDateTime"/>
+        <result column="service_end_datetime" property="serviceEndDateTime"/>
+        <result column="enable" property="enable"/>
+
+    </resultMap>
+    <sql id="base_sql">
+        access_key,access_secret,service_start_datetime,service_end_datetime,enable
+    </sql>
+    <select id="selectByKey" resultMap="BaseResultMap">
+        select <include refid="base_sql"/> from access_client where access_key = #{accessKey}
+    </select>
+</mapper>

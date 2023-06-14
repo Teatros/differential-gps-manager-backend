@@ -23,4 +23,9 @@ public interface IClientAccountService {
     void updateAccount(ClientAccount clientAccount);
 
     PageData<OnlineAccount> listOnlineAccounts(OnlineAccountQueryParams onlineAccountQueryParams);
+
+    String getDynamicPw(String account);
+
+    void updatePeriodicalPassword();
+
 }

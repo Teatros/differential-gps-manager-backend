@@ -118,4 +118,20 @@ public class ClientAccountServiceImpl implements IClientAccountService {
         PageHelper.clearPage();
         return result;
     }
+
+    @Override
+    public String getDynamicPw(String account) {
+        ClientAccount clientAccount = clientAccountMapper.selectByAccount(account);
+        return clientAccount.getPassword();
+    }
+
+    @Override
+    public void updatePeriodicalPassword() {
+        ClientUserQueryParams build = ClientUserQueryParams.builder().pageNum(1).pageSize(500).build();
+        List<ClientAccount> list = clientAccountMapper.list(build);
+        list.stream().forEach(clientAccount -> {
+            clientAccount.setPassword(UUIDUtil.get8Number().toString());
+            clientAccountMapper.update(clientAccount);
+        });
+    }
 }
