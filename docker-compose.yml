@@ -19,6 +19,3 @@ services:
           memory: 2000M
     environment:
       - JAVA_OPTS=-server -Xms2000m -Xmx2000m -XX:CompressedClassSpaceSize=128m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=128m -XX:+UseG1GC -XX:MaxGCPauseMillis=100 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2
-networks:
-  jobnetwork:
-    driver: bridge
