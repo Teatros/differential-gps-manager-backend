@@ -3,7 +3,6 @@ services:
   differential-gps-manager-backend:
     image: 'differential-gps-manager-backend:v1'
     networks:
-      - default
       - xxl-job-network
     container_name: differential-gps-manager-backend
     restart: always
