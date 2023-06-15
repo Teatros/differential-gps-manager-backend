@@ -24,4 +24,5 @@ public class ClientAccount {
     private Boolean inUse;
     private LocalDateTime createDateTime;
     private Boolean forbidden;
+    private Integer type;
 }

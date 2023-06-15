@@ -19,6 +19,7 @@ public class ClientUserQueryParams {
     private String account;
     private LocalDateTime serviceStartDateTime;
     private LocalDateTime serviceEndDateTime;
+    private Integer type;
     private Integer pageNum;
     private Integer pageSize;
 }

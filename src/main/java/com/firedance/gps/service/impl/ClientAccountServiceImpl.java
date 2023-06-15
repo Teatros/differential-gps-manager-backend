@@ -93,7 +93,7 @@ public class ClientAccountServiceImpl implements IClientAccountService {
             }
             ClientAccount build = ClientAccount.builder().id(UUIDUtil.getId()).account(account).password(password)
                 .serviceStartDateTime(serviceStartDateTime).serviceEndDateTime(serviceEndDateTime)
-                .createDateTime(LocalDateTime.now()).forbidden(false).specification(specification)
+                .createDateTime(LocalDateTime.now()).forbidden(false).specification(specification).type(0)
                 .build();
             clientAccounts.add(build);
         }
@@ -127,7 +127,7 @@ public class ClientAccountServiceImpl implements IClientAccountService {
 
     @Override
     public void updatePeriodicalPassword() {
-        ClientUserQueryParams build = ClientUserQueryParams.builder().pageNum(1).pageSize(500).build();
+        ClientUserQueryParams build = ClientUserQueryParams.builder().pageNum(1).pageSize(500).type(1).build();
         List<ClientAccount> list = clientAccountMapper.list(build);
         list.stream().forEach(clientAccount -> {
             clientAccount.setPassword(UUIDUtil.get8Number().toString());
