@@ -9,6 +9,7 @@ import com.firedance.gps.model.AccountSpecification;
 import com.firedance.gps.model.ClientAccount;
 import com.firedance.gps.model.ServerProvider;
 import com.firedance.gps.model.enums.AccountSpecificationEnum;
+import com.firedance.gps.model.enums.ServiceProviderEnum;
 import com.firedance.gps.model.excel.ClientAccountExcelModel;
 import com.firedance.gps.service.IClientAccountService;
 import com.firedance.gps.service.IServerProviderService;
@@ -41,15 +42,8 @@ public class ServerProviderController {
     }
 
     @RequestMapping(value = "/server/mount_points",method = RequestMethod.GET)
-    public Result<List<String>> getMountPoints(){
-        ArrayList<String> mountPoints = new ArrayList<>();
-        mountPoints.add("RTCM33");
-        mountPoints.add("RTCM33_GRCE");
-        mountPoints.add("RTCM30_GR");
-        mountPoints.add("RTCM33_GRC");
-        mountPoints.add("RTCM33_GRCEpro");
-        mountPoints.add("RTCM33_GRCEJ");
-        return ResultHelper.success(mountPoints);
+    public Result<List<String>> getMountPoints(@RequestParam("serviceProvider")ServiceProviderEnum serviceProvider){
+        return ResultHelper.success(serviceProvider.getMountPoints());
     }
 
     @RequestMapping(value = "/server/provider",method = RequestMethod.POST)

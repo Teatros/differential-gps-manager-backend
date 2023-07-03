@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class UUIDUtil {
 
-    private static String alphaChars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private static String alphaChars="abcdefghijklmnopqrstuvwxyz";
     public UUIDUtil() {
     }
 

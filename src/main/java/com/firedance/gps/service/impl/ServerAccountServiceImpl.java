@@ -90,4 +90,9 @@ public class ServerAccountServiceImpl implements IServerAccountService {
     public void deleteAccount(String id) {
         serverAccountMapper.delete(id);
     }
+
+    @Override
+    public void updateAccount(ServerAccount serverAccount) {
+        serverAccountMapper.update(serverAccount);
+    }
 }

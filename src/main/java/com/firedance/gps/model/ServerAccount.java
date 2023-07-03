@@ -16,6 +16,7 @@ public class ServerAccount {
     private String id;
     private String ip;
     private String port;
+    private String serviceProvider;
     private String mountPoint;
     private String account;
     private String password;

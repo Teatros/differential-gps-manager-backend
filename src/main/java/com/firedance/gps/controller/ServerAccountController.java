@@ -33,6 +33,12 @@ public class ServerAccountController {
         return ResultHelper.success(serverAccountService.listAccounts(serverAccountQueryParams));
     }
 
+    @RequestMapping(value = "/server/account",method = RequestMethod.PUT)
+    public Result<Boolean> updateServerAccounts(@RequestBody ServerAccount serverAccount) throws IOException {
+        serverAccountService.updateAccount(serverAccount);
+        return ResultHelper.success(true);
+    }
+
     @RequestMapping(value = "/server/account/{id}",method = RequestMethod.DELETE)
     public Result<Boolean> postServerAccounts(@PathVariable("id")String id) throws IOException {
         serverAccountService.deleteAccount(id);

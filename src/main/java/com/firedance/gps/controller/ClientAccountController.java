@@ -9,6 +9,7 @@ import com.firedance.gps.model.AccountSpecification;
 import com.firedance.gps.model.ClientAccount;
 import com.firedance.gps.model.OnlineAccount;
 import com.firedance.gps.model.enums.AccountSpecificationEnum;
+import com.firedance.gps.model.enums.ServiceProviderEnum;
 import com.firedance.gps.model.excel.ClientAccountExcelModel;
 import com.firedance.gps.service.IClientAccountService;
 import com.firedance.gps.utils.excel.ExcelBuilder;
@@ -57,8 +58,9 @@ public class ClientAccountController {
     }
 
     @RequestMapping(value = "/client/account",method = RequestMethod.POST)
-    public Result<Boolean> createAccount(@RequestParam("count")Integer count,@RequestParam("type")AccountSpecificationEnum specification){
-        clientAccountService.createAccount(count,specification);
+    public Result<Boolean> createAccount(@RequestParam("count")Integer count,@RequestParam("type")AccountSpecificationEnum specification,@RequestParam("serviceProvider")
+        ServiceProviderEnum serviceProvider){
+        clientAccountService.createAccount(count,specification,serviceProvider.toString());
 
         return ResultHelper.success(true);
     }

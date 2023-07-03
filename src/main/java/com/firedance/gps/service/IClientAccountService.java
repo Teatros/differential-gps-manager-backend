@@ -18,7 +18,7 @@ public interface IClientAccountService {
 
     List<ClientAccount> analyseExcel(File file);
 
-    void createAccount(Integer count, AccountSpecificationEnum specification);
+    void createAccount(Integer count, AccountSpecificationEnum specification, String serviceProvider);
 
     void updateAccount(ClientAccount clientAccount);
 

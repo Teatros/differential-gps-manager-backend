@@ -22,4 +22,6 @@ public interface IServerAccountService {
     void insert(List<ServerAccount> serverAccounts);
 
     void deleteAccount(String id);
+
+    void updateAccount(ServerAccount serverAccount);
 }

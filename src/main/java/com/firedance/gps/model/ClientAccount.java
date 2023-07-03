@@ -17,6 +17,7 @@ public class ClientAccount {
     private String id;
     private String account;
     private String password;
+    private String serviceProvider;
     private AccountSpecificationEnum specification;
     private LocalDateTime serviceStartDateTime;
     private LocalDateTime serviceEndDateTime;

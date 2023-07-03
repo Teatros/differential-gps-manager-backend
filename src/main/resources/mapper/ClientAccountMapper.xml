@@ -6,6 +6,7 @@
         <id column="id" property="id"/>
         <result column="account" property="account"/>
         <result column="password" property="password"/>
+        <result column="service_provider" property="serviceProvider"/>
         <result column="specification" property="specification"/>
         <result column="service_start_datetime" property="serviceStartDateTime"/>
         <result column="service_end_datetime" property="serviceEndDateTime"/>
@@ -16,7 +17,7 @@
         <result column="type" property="type"/>
     </resultMap>
     <sql id="base_sql">
-        id,account,password,specification,service_start_datetime,service_end_datetime,last_login_date_time,is_in_use,create_date_time,forbidden,type
+        id,account,password,service_provider,specification,service_start_datetime,service_end_datetime,last_login_date_time,is_in_use,create_date_time,forbidden,type
     </sql>
     <select id="selectByAccount" resultMap="BaseResultMap">
         select <include refid="base_sql"/> from client_account
@@ -40,10 +41,10 @@
         </if>
     </select>
     <insert id="batchInsert" parameterType="com.firedance.gps.model.ClientAccount">
-        insert into client_account(id,account,password,specification,service_start_datetime,service_end_datetime,is_in_use,forbidden,create_date_time,is_delete,type)
+        insert into client_account(id,account,password,service_provider,specification,service_start_datetime,service_end_datetime,is_in_use,forbidden,create_date_time,is_delete,type)
         values
         <foreach collection="clientAccounts" item="clientAccount" separator=",">
-            (#{clientAccount.id},#{clientAccount.account},#{clientAccount.password},#{clientAccount.specification},
+            (#{clientAccount.id},#{clientAccount.account},#{clientAccount.password},#{clientAccount.serviceProvider},#{clientAccount.specification},
              #{clientAccount.serviceStartDateTime},#{clientAccount.serviceEndDateTime},0,#{clientAccount.forbidden},
              NOW(),0,#{clientAccount.type})
         </foreach>
@@ -76,4 +77,10 @@
     <select id="listOnlineAccounts" resultType="com.firedance.gps.model.OnlineAccount">
         select account,last_datagram lastDatagram from client_account where is_in_use = 1 order by last_login_date_time desc
     </select>
+    <select id="getClientAccountLastSerial" resultType="Integer">
+        select account_serial_number from client_account_serial
+    </select>
+    <update id="updateClientAccountLastSerial" parameterType="Integer">
+        update client_account_serial set account_serial_number = #{serialNumber}
+    </update>
 </mapper>

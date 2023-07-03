@@ -73,10 +73,17 @@ public class ClientAccountServiceImpl implements IClientAccountService {
     }
 
     @Override
-    public void createAccount(Integer count, AccountSpecificationEnum specification) {
+    public void createAccount(Integer count, AccountSpecificationEnum specification, String serviceProvider) {
         ArrayList<ClientAccount> clientAccounts = new ArrayList<>();
+        Integer serialNumber = clientAccountMapper.getClientAccountLastSerial();
         for (int i = 0; i < count; i++) {
-            String account = UUIDUtil.get4UUID() + UUIDUtil.get4Number();
+            serialNumber ++;
+            String account = UUIDUtil.get4UUID() + String.format("%04d", serialNumber);
+            ClientAccount clientAccount = clientAccountMapper.selectByAccount(account);
+            while (clientAccount!=null){
+                account = UUIDUtil.get4UUID() + String.format("%04d", serialNumber);
+                clientAccount = clientAccountMapper.selectByAccount(account);
+            }
             String password = String.valueOf(UUIDUtil.get8Number());
             Integer interval = specification.getInterval();
             LocalDateTime serviceStartDateTime = LocalDateTime.now();
@@ -92,12 +99,14 @@ public class ClientAccountServiceImpl implements IClientAccountService {
                 serviceEndDateTime = serviceStartDateTime.plusYears(interval);
             }
             ClientAccount build = ClientAccount.builder().id(UUIDUtil.getId()).account(account).password(password)
+                .serviceProvider(serviceProvider)
                 .serviceStartDateTime(serviceStartDateTime).serviceEndDateTime(serviceEndDateTime)
                 .createDateTime(LocalDateTime.now()).forbidden(false).specification(specification).type(0)
                 .build();
             clientAccounts.add(build);
         }
         clientAccountMapper.batchInsert(clientAccounts);
+        clientAccountMapper.updateClientAccountLastSerial(serialNumber);
     }
 
     @Override

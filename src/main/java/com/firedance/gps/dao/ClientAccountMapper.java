@@ -32,4 +32,8 @@ public interface ClientAccountMapper {
 
     List<OnlineAccount> listOnlineAccounts();
 
+    Integer getClientAccountLastSerial();
+
+    void updateClientAccountLastSerial(@Param("serialNumber")Integer serialNumber);
+
 }
