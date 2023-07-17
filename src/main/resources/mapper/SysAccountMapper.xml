@@ -6,17 +6,23 @@
         <id column="id" property="id"/>
         <result column="account" property="account"/>
         <result column="password" property="password"/>
+        <result column="account_name" property="accountName"/>
         <result column="mobile" property="mobile"/>
         <result column="email" property="email"/>
         <result column="lasted_login_datetime" property="lastedLoginDateTime"/>
         <result column="role" property="role"/>
+        <result column="company" property="company"/>
     </resultMap>
     <sql id="base_sql">
-        id,account,password,mobile,email,lasted_login_datetime,role
+        id,account,password,account_name,mobile,email,lasted_login_datetime,role,company
     </sql>
     <select id="selectByAccount" resultMap="BaseResultMap">
         select <include refid="base_sql"/> from sys_account
         where account = #{account} and enable = 1
+    </select>
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        select <include refid="base_sql"/> from sys_account
+        where id = #{userId} and enable = 1
     </select>
     <update id="update" parameterType="com.firedance.gps.model.SysAccount">
         update sys_account
@@ -36,4 +42,9 @@
         </set>
         where account = #{account}
     </update>
+    <insert id="insert" parameterType="com.firedance.gps.model.SysAccount">
+        INSERT INTO `sys_account`(`id`, `account`, `account_name`, `password`, `mobile`, `email`, `lasted_login_datetime`, `role`, `company`, `enable`)
+        VALUES
+        (#{id}, #{account}, #{accountName}, #{password}, #{mobile}, #{email}, null, #{role}, #{company}, 1);
+    </insert>
 </mapper>

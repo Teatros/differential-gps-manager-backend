@@ -26,7 +26,7 @@ public interface ClientAccountMapper {
      */
     List<ClientAccount> list(ClientUserQueryParams clientUserQueryParams);
 
-    void batchInsert(@Param("clientAccounts")ArrayList<ClientAccount> clientAccounts);
+    void batchInsert(@Param("clientAccounts")List<ClientAccount> clientAccounts);
 
     void update(ClientAccount clientAccount);
 

@@ -14,8 +14,10 @@ public class SysAccount {
     private String id;
     private String account;
     private String password;
+    private String accountName;
     private String mobile;
     private String email;
+    private String company;
     private LocalDateTime lastedLoginDateTime;
     private String role;
 }

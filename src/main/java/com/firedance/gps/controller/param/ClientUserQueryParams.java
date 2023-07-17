@@ -20,6 +20,7 @@ public class ClientUserQueryParams {
     private LocalDateTime serviceStartDateTime;
     private LocalDateTime serviceEndDateTime;
     private Integer type;
+    private String userId;
     private Integer pageNum;
     private Integer pageSize;
 }

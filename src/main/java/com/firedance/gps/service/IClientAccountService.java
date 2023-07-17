@@ -28,4 +28,6 @@ public interface IClientAccountService {
 
     void updatePeriodicalPassword();
 
+    void batchInsertAccounts(List<ClientAccount> clientAccounts);
+
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.firedance.gps.dao.SmsCodeMapper">
+    <resultMap id="BaseResultMap" type="com.firedance.gps.model.SmsCode">
+        <id column="id" property="id"/>
+        <result column="mobile" property="mobile"/>
+        <result column="code" property="code"/>
+        <result column="date_time" property="dateTime"/>
+        <result column="used" property="used"/>
+    </resultMap>
+    <sql id="base_sql">
+        mobile,code,date_time,used
+    </sql>
+    <select id="getLastedSmsCode" resultMap="BaseResultMap">
+        select <include refid="base_sql"/> from sms_code
+        where mobile = #{mobile}
+        order by date_time desc limit 1
+    </select>
+    <insert id="insert" parameterType="com.firedance.gps.model.SmsCode">
+        INSERT INTO `sms_code`(`mobile`, `code`, `date_time`, `used`)
+        VALUES (#{mobile}, #{code}, NOW(), 0);
+    </insert>
+    <insert id="updateUsed">
+        update sms_code set used = 1 where mobile = #{mobile} and code = #{code}
+    </insert>
+</mapper>

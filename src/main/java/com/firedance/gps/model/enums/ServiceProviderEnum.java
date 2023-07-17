@@ -33,4 +33,14 @@ public enum ServiceProviderEnum {
     public List<String> getMountPoints() {
         return mountPoints;
     }
+
+    public static ServiceProviderEnum getServiceProviderEnumByDescription(String description){
+        for (ServiceProviderEnum provider:
+            ServiceProviderEnum.values()) {
+            if(provider.getDescription().equals(description)){
+                return provider;
+            }
+        }
+        return CHINA_MOBILE;
+    }
 }

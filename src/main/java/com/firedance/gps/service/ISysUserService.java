@@ -11,4 +11,8 @@ public interface ISysUserService {
     SysAccount getAccount(String account);
 
     void update(SysAccount sysAccount);
+
+    void registerAccount(SysAccount sysAccount);
+
+    SysAccount getByUserId(String userId);
 }

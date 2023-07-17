@@ -8,6 +8,7 @@ import com.firedance.gps.dao.ClientLoginRecordMapper;
 import com.firedance.gps.model.ClientAccount;
 import com.firedance.gps.model.OnlineAccount;
 import com.firedance.gps.model.enums.AccountSpecificationEnum;
+import com.firedance.gps.model.enums.ServiceProviderEnum;
 import com.firedance.gps.service.IClientAccountService;
 import com.firedance.gps.utils.ExcelUtil;
 import com.firedance.gps.utils.UUIDUtil;
@@ -55,6 +56,7 @@ public class ClientAccountServiceImpl implements IClientAccountService {
 
     @Override
     public List<ClientAccount> analyseExcel(File file) {
+        List<ClientAccount> clientAccounts = new ArrayList<>();
         Workbook workbook = null;
         try {
             workbook = ExcelUtil.initExcel(file);
@@ -68,8 +70,18 @@ public class ClientAccountServiceImpl implements IClientAccountService {
             Row cells = allRow.get(i);
             String account = ExcelUtil.getCellFormatValueWithNoFormat(cells.getCell(0)).toString();
             String password = ExcelUtil.getCellFormatValueWithNoFormat(cells.getCell(1)).toString();
+            String serviceProvider = ExcelUtil.getCellFormatValueWithNoFormat(cells.getCell(2)).toString();
+            ClientAccount clientAccount = new ClientAccount();
+            clientAccount.setAccount(account);
+            clientAccount.setPassword(password);
+            clientAccount.setId(UUIDUtil.getId());
+            clientAccount.setType(1);
+            clientAccount.setServiceStartDateTime(LocalDateTime.now());
+            clientAccount.setServiceEndDateTime(LocalDateTime.now().plusYears(1));
+            clientAccount.setServiceProvider(ServiceProviderEnum.getServiceProviderEnumByDescription(serviceProvider).toString());
+            clientAccounts.add(clientAccount);
         }
-        return null;
+        return clientAccounts;
     }
 
     @Override
@@ -102,6 +114,7 @@ public class ClientAccountServiceImpl implements IClientAccountService {
                 .serviceProvider(serviceProvider)
                 .serviceStartDateTime(serviceStartDateTime).serviceEndDateTime(serviceEndDateTime)
                 .createDateTime(LocalDateTime.now()).forbidden(false).specification(specification).type(0)
+                .userId("admin")
                 .build();
             clientAccounts.add(build);
         }
@@ -142,5 +155,10 @@ public class ClientAccountServiceImpl implements IClientAccountService {
             clientAccount.setPassword(UUIDUtil.get8Number().toString());
             clientAccountMapper.update(clientAccount);
         });
+    }
+
+    @Override
+    public void batchInsertAccounts(List<ClientAccount> clientAccounts) {
+        clientAccountMapper.batchInsert(clientAccounts);
     }
 }

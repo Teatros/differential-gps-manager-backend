@@ -16,4 +16,8 @@ public interface SysUserMapper {
     SysAccount selectByAccount(@Param("account") String account);
 
     void update(SysAccount sysAccount);
+
+    void insert(SysAccount sysAccount);
+
+    SysAccount selectByUserId(@Param("userId") String userId);
 }
