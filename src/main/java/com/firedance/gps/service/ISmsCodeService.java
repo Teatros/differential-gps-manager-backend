@@ -9,4 +9,6 @@ public interface ISmsCodeService {
     SmsCode getLastedSmsCode(String mobile);
 
     void sendSmsCode(String mobile);
+
+    void saveImageCode(String s, String code);
 }

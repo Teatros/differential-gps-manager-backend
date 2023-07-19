@@ -26,5 +26,5 @@ public class ClientAccount {
     private LocalDateTime createDateTime;
     private Boolean forbidden;
     private Integer type;
-    private String userId;
+    private String organization;
 }

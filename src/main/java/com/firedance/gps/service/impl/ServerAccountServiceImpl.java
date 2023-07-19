@@ -65,7 +65,7 @@ public class ServerAccountServiceImpl implements IServerAccountService {
                 String port = ExcelUtil.getCellFormatValue(cells.getCell(4)).toString();
                 String mountPoint = ExcelUtil.getCellFormatValue(cells.getCell(5)).toString();
                 ServerAccount build =
-                    ServerAccount.builder().id(UUIDUtil.getId()).ip(ip).port(port).account(account).password(password)
+                    ServerAccount.builder().id(UUIDUtil.getId()).ip(ip).port(port).account(account).password(password).serviceProvider("CHINA_MOBILE")
                         .mountPoint(mountPoint).serviceStartDateTime(null).serviceEndDateTime(null).enable(true).inUse(false)
                         .disableReason("")
                         .build();

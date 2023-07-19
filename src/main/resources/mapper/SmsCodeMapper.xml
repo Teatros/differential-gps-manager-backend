@@ -21,7 +21,7 @@
         INSERT INTO `sms_code`(`mobile`, `code`, `date_time`, `used`)
         VALUES (#{mobile}, #{code}, NOW(), 0);
     </insert>
-    <insert id="updateUsed">
+    <update id="updateUsed">
         update sms_code set used = 1 where mobile = #{mobile} and code = #{code}
-    </insert>
+    </update>
 </mapper>

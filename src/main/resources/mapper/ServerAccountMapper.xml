@@ -25,7 +25,7 @@
         insert into server_account(id,ip,port,service_provider,mount_point,account,password,service_start_datetime,service_end_datetime,is_in_use,enable,disable_reason,create_date_time,is_delete)
         values
         <foreach collection="serverAccounts" item="serverAccount" separator=",">
-            (#{serverAccount.id},#{serverAccount.ip},#{serverAccount.serviceProvider},#{serverAccount.port},#{serverAccount.mountPoint},
+            (#{serverAccount.id},#{serverAccount.ip},#{serverAccount.port},#{serverAccount.serviceProvider},#{serverAccount.mountPoint},
              #{serverAccount.account},#{serverAccount.password},
              #{serverAccount.serviceStartDateTime},#{serverAccount.serviceEndDateTime},0,1,'',NOW(),0)
         </foreach>
