@@ -27,4 +27,6 @@ public class ClientAccount {
     private Boolean forbidden;
     private Integer type;
     private String organization;
+    private Integer onlineHours;
+    private Integer remainedDays;
 }
